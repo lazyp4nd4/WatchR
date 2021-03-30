@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from censys import censys_ip
 from instagram import Instagram
 from hunter import hunterIo
+from phone import phoneinfo
 
 
 app = Flask(__name__)
@@ -18,7 +19,14 @@ def fun_ins(first, last, domain):
     if hunterIo(first, last, domain) != None :
         return jsonify(hunterIo(first, last, domain))
     else :
-        return None        
+        return None  
+
+@app.route("/3/<string:phone_input>")
+def fun_phone(phone_input):
+    if phoneinfo(phone_input) != None :
+        return jsonify(phoneinfo(phone_input))
+    else :
+        return None      
 
 
 if __name__ == "__main__":
