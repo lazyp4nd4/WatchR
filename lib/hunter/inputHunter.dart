@@ -120,7 +120,7 @@ class _InputHunterState extends State<InputHunter> {
                   ? ElevatedButton(
                       onPressed: () async {
                         final res = await http.get(Uri.http(
-                            "192.168.1.5:5000", "/2/$first/$last/$domain"));
+                            "192.168.1.4:5000", "/2/$first/$last/$domain"));
                         dynamic decoded = convert.jsonDecode(res.body)
                             as Map<String, dynamic>;
 

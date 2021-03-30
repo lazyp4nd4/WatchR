@@ -99,7 +99,7 @@ class _InputDetailsState extends State<InputDetails> {
               ? ElevatedButton(
                   onPressed: () async {
                     final res = await http
-                        .get(Uri.http("192.168.1.3:5000", "/2/$username"));
+                        .get(Uri.http("192.168.1.4:5000", "/2/$username"));
                     dynamic decoded =
                         convert.jsonDecode(res.body) as Map<String, dynamic>;
                     final res1 =
