@@ -5,13 +5,8 @@ import 'package:osint/hunter/hunters.dart';
 import 'package:osint/hunter/inputHunter.dart';
 import 'package:osint/ip-locator/ipAddress.dart';
 import 'package:osint/ip-locator/ips.dart';
-import 'package:osint/model/loading.dart';
-import 'package:osint/model/navDrawer.dart';
-import 'package:http/http.dart' as http;
-import 'package:osint/profile-generation/inputDetails.dart';
 import 'package:osint/root.dart';
 import 'package:osint/services/authService.dart';
-import 'dart:convert' as convert;
 
 import 'package:osint/services/sharedPreferences.dart';
 
@@ -89,6 +84,11 @@ class HomeMain extends StatefulWidget {
 }
 
 class _HomeMainState extends State<HomeMain> {
+  // AnimationController controller1;
+  // AnimationController controller2;
+  // Animation animation1;
+  // Animation animation2;
+
   String _name;
   void fun() async {
     String name = await SharedFunctions.getUserName();
@@ -102,6 +102,47 @@ class _HomeMainState extends State<HomeMain> {
   void initState() {
     super.initState();
     fun();
+    // controller1 = AnimationController(
+    //   duration: Duration(seconds: 1),
+    //   vsync: this,
+    // );
+    // controller2 = AnimationController(
+    //   duration: Duration(seconds: 1),
+    //   vsync: this,
+    // );
+    // //animation = CurvedAnimation(parent: controller, curve: Curves.linear);
+    // animation1 = Tween<double>(begin: 10, end: 15).animate(controller1);
+    // controller1.forward();
+    // animation1.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     controller1.reverse(from: 1);
+    //   } else if (status == AnimationStatus.dismissed) {
+    //     controller1.forward();
+    //   }
+    // });
+    // controller1.addListener(() {
+    //   setState(() {});
+    // });
+
+    // animation2 = Tween<double>(begin: 10, end: 15).animate(controller2);
+    // controller2.reverse(from: 1);
+    // animation2.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     controller2.reverse(from: 1);
+    //   } else if (status == AnimationStatus.dismissed) {
+    //     controller2.forward();
+    //   }
+    // });
+    // controller2.addListener(() {
+    //   setState(() {});
+    // });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // controller1.dispose();
+    // controller2.dispose();
   }
 
   @override
@@ -111,46 +152,145 @@ class _HomeMainState extends State<HomeMain> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await AuthService().signOutUser();
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Root()));
+              },
+              icon: Icon(
+                Icons.logout,
+                color: Palette.darkBlue,
+              ))
+        ],
         title: Text(
           'Home',
           style: TextStyle(color: Palette.darkBlue),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Welcome back $_name!',
+              Expanded(
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IPAddress()));
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(alignment: Alignment.center, children: [
+                            Image(
+                                image: AssetImage("assets/green.png"),
+                                height: 220),
+                            Column(
+                              children: [
+                                Image(
+                                  image: AssetImage("assets/map.png"),
+                                  height: 200,
+                                ),
+                                Text("Locate IP",
+                                    style: TextStyle(
+                                        color: Palette.darkBlue,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            )
+                          ]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(
-                height: 30,
+              Expanded(
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => InputHunter()));
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(alignment: Alignment.center, children: [
+                            Image(
+                                image: AssetImage("assets/orange.png"),
+                                height: 220),
+                            Column(
+                              children: [
+                                Image(
+                                    image: AssetImage("assets/hunter.png"),
+                                    height: 200),
+                                Text("Generate Profile",
+                                    style: TextStyle(
+                                        color: Palette.darkBlue,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            )
+                          ]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              ElevatedButton(
-                  child: Text('Generate Profile'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => InputHunter()));
-                  }),
-              SizedBox(height: 50),
-              ElevatedButton(
-                  child: Text('Locate IP'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => IPAddress()));
-                  }),
-              SizedBox(height: 50),
-              ElevatedButton(
-                  child: Text('Logout'),
-                  onPressed: () async {
-                    await AuthService().signOutUser();
-                    // Navigator.pop(context);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Root()));
-                  }),
+              Expanded(
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IPAddress()));
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(alignment: Alignment.center, children: [
+                            Image(
+                                image: AssetImage("assets/blue.png"),
+                                height: 200),
+                            Column(
+                              children: [
+                                Image(
+                                  image: AssetImage("assets/phone.png"),
+                                  height: 180,
+                                ),
+                                Text("Locate Phone Number",
+                                    style: TextStyle(
+                                        color: Palette.darkBlue,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            )
+                          ]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

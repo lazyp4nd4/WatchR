@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:osint/config/palette.dart';
 import 'package:osint/model/navDrawer.dart';
 import 'package:osint/services/databaseService.dart';
 import 'package:osint/services/sharedPreferences.dart';
@@ -36,8 +37,18 @@ class _InputHunterState extends State<InputHunter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Generated'),
-      ),
+          title: Text('IP Locator', style: TextStyle(color: Palette.darkBlue)),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Palette.darkBlue,
+              ))),
       drawer: NavDrawer(),
       body: SingleChildScrollView(
           child: Center(
@@ -47,6 +58,30 @@ class _InputHunterState extends State<InputHunter> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(alignment: Alignment.center, children: [
+                      Image(
+                          image: AssetImage("assets/orange.png"), height: 220),
+                      Column(
+                        children: [
+                          Image(
+                            image: AssetImage("assets/hunter.png"),
+                            height: 250,
+                          ),
+                          Text("Locate IP",
+                              style: TextStyle(
+                                  color: Palette.darkBlue,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ])
+                  ]),
+              SizedBox(
+                height: 100,
+              ),
               received == false
                   ? TextField(
                       keyboardType: TextInputType.text,

@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
         accentColor: Palette.darkOrange,
         appBarTheme: const AppBarTheme(
             brightness: Brightness.dark, color: Palette.darkBlue),
-        primarySwatch: Colors.blue,
-        backgroundColor: Palette.lightBlue,
+        backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: Root(),
