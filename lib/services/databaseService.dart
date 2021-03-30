@@ -27,31 +27,31 @@ class DatabaseServices {
     return (ans1 && ans2 && ans3);
   }
 
-  addIP(city, country, service_provider, ip, lat, lang) {
+  addIP(city, country, serviceProvider, ip, lat, lang) {
     FirebaseFirestore.instance.collection('ipaddresses').doc(ip).set({
       'country': country,
       'city': city,
-      'service_provider': service_provider,
+      'service_provider': serviceProvider,
       'ip': ip,
       'lat': lat,
       'lang': lang
     });
   }
 
-  addProfile(city, country, service_provider, ip, lat, lang, photo_url,
-      full_name, followers, following, bio, username) {
+  addProfile(city, country, serviceProvider, ip, lat, lang, photoUrl, fullName,
+      followers, following, bio, username) {
     FirebaseFirestore.instance
         .collection('profileGenerated')
         .doc(username)
         .set({
       'country': country,
       'city': city,
-      'service_provider': service_provider,
+      'service_provider': serviceProvider,
       'ip': ip,
       'lat': lat,
       'lang': lang,
-      'photo_url': photo_url,
-      'full_name': full_name,
+      'photo_url': photoUrl,
+      'full_name': fullName,
       'followers': followers,
       'following': following,
       'bio': bio,

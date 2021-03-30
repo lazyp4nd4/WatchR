@@ -17,7 +17,9 @@ class _InputDetailsState extends State<InputDetails> {
   String ip;
   bool received = false;
   bool error = false;
+  // ignore: non_constant_identifier_names
   Map<String, dynamic> result_ip;
+  // ignore: non_constant_identifier_names
   Map<String, dynamic> result_profile;
   String uid;
   Future<void> getUserUid() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:osint/config/palette.dart';
-import 'package:osint/model/navDrawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,7 +16,9 @@ class _IPAddressState extends State<IPAddress> {
   String username;
   bool received = false;
   bool error = false;
+  // ignore: non_constant_identifier_names
   Map<String, dynamic> result_ip;
+  // ignore: non_constant_identifier_names
   Map<String, dynamic> result_instagram;
   String uid;
   Future<void> getUserUid() async {

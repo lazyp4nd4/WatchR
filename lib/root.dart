@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:osint/screens/auth/auth_scree.dart';
 import 'package:osint/searchAndHome/home.dart';
-import 'package:osint/authentication/login.dart';
 import 'package:osint/model/loading.dart';
 import 'package:osint/services/sharedPreferences.dart';
 

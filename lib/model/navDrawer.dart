@@ -5,7 +5,6 @@ import 'package:osint/ip-locator/ips.dart';
 import 'package:osint/root.dart';
 import 'package:osint/searchAndHome/home.dart';
 import 'package:osint/services/authService.dart';
-import 'package:osint/services/sharedPreferences.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -13,22 +12,9 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-  String _name;
-  String _phone;
-
-  void fun() async {
-    String name = await SharedFunctions.getUserName();
-    String phone = await SharedFunctions.getUserPN();
-    setState(() {
-      _name = name;
-      _phone = phone;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    fun();
   }
 
   @override
