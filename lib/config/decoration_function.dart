@@ -21,15 +21,15 @@ InputDecoration registerInputDecoration({String hintText}) {
 InputDecoration signInInputDecoration({String hintText}) {
   return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: 18),
-      hintStyle: const TextStyle(color: Palette.darkBlue, fontSize: 18),
+      hintStyle: const TextStyle(color: Palette.orange, fontSize: 18),
       hintText: hintText,
       focusedBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: Palette.darkBlue, width: 2),
+        borderSide: BorderSide(color: Palette.orange, width: 2),
       ),
       enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Palette.darkBlue)),
+          borderSide: BorderSide(color: Palette.orange)),
       errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Palette.darkOrange)),
+          borderSide: BorderSide(color: Palette.orange)),
       focusedErrorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(width: 2, color: Palette.darkOrange)),
       errorStyle: TextStyle(color: Colors.white));

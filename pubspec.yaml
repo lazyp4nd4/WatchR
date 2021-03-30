@@ -39,6 +39,7 @@ dependencies:
   google_maps_flutter:
   google_fonts:
   animations: ^2.0.0
+  curved_navigation_bar:
 
 dev_dependencies:
   flutter_test:

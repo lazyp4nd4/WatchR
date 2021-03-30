@@ -122,7 +122,7 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(
                             fontSize: 16,
                             decoration: TextDecoration.underline,
-                            color: Palette.darkBlue)),
+                            color: Palette.orange)),
                   ),
                 )
               ])),

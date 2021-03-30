@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:osint/config/palette.dart';
 import 'package:osint/ip-locator/ipSearchTile.dart';
 import 'package:osint/ip-locator/ipadd.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,13 @@ class _IPSearchListState extends State<IPSearchList> {
     final ips = Provider.of<List<IPAdd>>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Previous IP Located'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        title: Text(
+          'Previous IPs Located',
+          style: TextStyle(color: Palette.darkBlue),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 8),

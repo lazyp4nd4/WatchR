@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:osint/config/palette.dart';
 import 'package:osint/model/navDrawer.dart';
 import 'package:osint/profile-generation/profile.dart';
 import 'package:osint/profile-generation/profileTile.dart';
@@ -15,7 +16,13 @@ class _ProfileListState extends State<ProfileList> {
     final profiles = Provider.of<List<Profiless>>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Previous Profiles Generated'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        title: Text(
+          'Previous Profiles Generated',
+          style: TextStyle(color: Palette.darkBlue),
+        ),
       ),
       drawer: NavDrawer(),
       body: Padding(
