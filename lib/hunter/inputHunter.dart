@@ -37,7 +37,9 @@ class _InputHunterState extends State<InputHunter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('IP Locator', style: TextStyle(color: Palette.darkBlue)),
+          title: Text('IP Locator',
+              style: TextStyle(
+                  color: Palette.darkOrange, fontWeight: FontWeight.bold)),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -47,7 +49,7 @@ class _InputHunterState extends State<InputHunter> {
               },
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Palette.darkBlue,
+                color: Palette.darkOrange,
               ))),
       drawer: NavDrawer(),
       body: SingleChildScrollView(

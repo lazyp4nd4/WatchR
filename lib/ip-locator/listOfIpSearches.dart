@@ -20,7 +20,8 @@ class _IPSearchListState extends State<IPSearchList> {
         shadowColor: Colors.transparent,
         title: Text(
           'Previous IPs Located',
-          style: TextStyle(color: Palette.darkBlue),
+          style:
+              TextStyle(color: Palette.darkOrange, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(

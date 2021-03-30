@@ -51,6 +51,7 @@ class _RegisterState extends State<Register> {
               child: ListView(children: [
                 TextFormField(
                   decoration: registerInputDecoration(hintText: 'Name'),
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.name,
                   autocorrect: false,
                   onChanged: (value) {
@@ -61,6 +62,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   decoration: registerInputDecoration(hintText: 'Phone Number'),
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.phone,
                   autocorrect: false,
                   onChanged: (value) {
@@ -71,6 +73,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   decoration: registerInputDecoration(hintText: 'Email'),
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   onChanged: (value) {
@@ -81,6 +84,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   decoration: registerInputDecoration(hintText: 'Password'),
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.visiblePassword,
                   autocorrect: false,
                   onChanged: (value) {
@@ -122,7 +126,7 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(
                             fontSize: 16,
                             decoration: TextDecoration.underline,
-                            color: Palette.orange)),
+                            color: Colors.white)),
                   ),
                 )
               ])),

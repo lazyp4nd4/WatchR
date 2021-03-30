@@ -20,7 +20,8 @@ class _HunterListState extends State<HunterList> {
         shadowColor: Colors.transparent,
         title: Text(
           'Profiles Generated',
-          style: TextStyle(color: Palette.darkBlue),
+          style:
+              TextStyle(color: Palette.darkOrange, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(

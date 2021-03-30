@@ -44,8 +44,8 @@ class _HomeState extends State<Home> {
         key: _bottomNavigationKey,
         index: _page,
         color: Palette.lightBlue,
-        backgroundColor: Colors.white,
-        buttonBackgroundColor: Palette.orange,
+        backgroundColor: Color(0xffFFF7EB),
+        buttonBackgroundColor: Palette.darkOrange,
         onTap: (value) {
           print(_page);
           setState(() {
@@ -57,15 +57,15 @@ class _HomeState extends State<Home> {
         items: [
           Icon(
             Icons.pin_drop_outlined,
-            color: Palette.darkBlue,
+            color: Color(0xffFFF7EB),
           ),
           Icon(
             Icons.home_outlined,
-            color: Palette.darkBlue,
+            color: Color(0xffFFF7EB),
           ),
           Icon(
             Icons.verified_user_outlined,
-            color: Palette.darkBlue,
+            color: Color(0xffFFF7EB),
           )
         ],
       ),
@@ -161,12 +161,13 @@ class _HomeMainState extends State<HomeMain> {
               },
               icon: Icon(
                 Icons.logout,
-                color: Palette.darkBlue,
+                color: Palette.darkOrange,
               ))
         ],
         title: Text(
           'Home',
-          style: TextStyle(color: Palette.darkBlue),
+          style:
+              TextStyle(color: Palette.darkOrange, fontWeight: FontWeight.bold),
         ),
       ),
       body: Center(

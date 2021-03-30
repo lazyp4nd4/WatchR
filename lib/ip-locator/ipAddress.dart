@@ -40,7 +40,9 @@ class _IPAddressState extends State<IPAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('IP Locator', style: TextStyle(color: Palette.darkBlue)),
+          title: Text('IP Locator',
+              style: TextStyle(
+                  color: Palette.darkOrange, fontWeight: FontWeight.bold)),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -50,7 +52,7 @@ class _IPAddressState extends State<IPAddress> {
               },
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Palette.darkBlue,
+                color: Palette.darkOrange,
               ))),
       body: SingleChildScrollView(
           child: Center(

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
             brightness: Brightness.dark, color: Palette.darkBlue),
         backgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xffFFF7EB),
       ),
       home: Root(),
     );
