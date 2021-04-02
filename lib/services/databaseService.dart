@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:osint/hunter/hunter.dart';
 import 'package:osint/ip-locator/ipadd.dart';
+import 'package:osint/phone/phone.dart';
 import 'package:osint/profile-generation/profile.dart';
 import 'package:osint/services/sharedPreferences.dart';
 
@@ -72,6 +73,20 @@ class DatabaseServices {
       'company': company,
       'position': position,
       'confidence': confidence
+    });
+  }
+
+  addPhoneNumberLocations(
+      location, carrier, country_name, line_type, phone_number) {
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection("phoneNumbers").doc();
+    docRef.set({
+      'uid': docRef.id,
+      'location': location,
+      'carrier': carrier,
+      'country_name': country_name,
+      'line_type': line_type,
+      'phone_number': phone_number
     });
   }
 
@@ -161,5 +176,23 @@ class DatabaseServices {
         .collection('hunterProfiles')
         .snapshots()
         .map(_hunterProfileListFromSnapshots);
+  }
+
+  List<PhoneSt> _phoneNumberListFromSnapshots(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return PhoneSt(
+          location: doc['location'],
+          carrier: doc['carrier'],
+          line_type: doc['line_type'],
+          country_name: doc['country_name'],
+          phone_number: doc['phone_number']);
+    }).toList();
+  }
+
+  Stream<List<PhoneSt>> get phoneNumbers {
+    return FirebaseFirestore.instance
+        .collection('phoneNumbers')
+        .snapshots()
+        .map(_phoneNumberListFromSnapshots);
   }
 }

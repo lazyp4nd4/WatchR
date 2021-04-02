@@ -4,7 +4,7 @@ import requests
 
 def phoneinfo(number):
     try:    
-        req = requests.get("https://demo.phoneinfoga.crvx.fr/api/numbers/91"+number+"/scan/numverify")
+        req = requests.get("https://demo.phoneinfoga.crvx.fr/api/numbers/"+number+"/scan/numverify")
         j=req.json()
         return j
     except:

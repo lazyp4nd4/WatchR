@@ -5,6 +5,8 @@ import 'package:osint/hunter/hunters.dart';
 import 'package:osint/hunter/inputHunter.dart';
 import 'package:osint/ip-locator/ipAddress.dart';
 import 'package:osint/ip-locator/ips.dart';
+import 'package:osint/phone/phoneInput.dart';
+import 'package:osint/phone/phones.dart';
 import 'package:osint/root.dart';
 import 'package:osint/services/authService.dart';
 
@@ -64,6 +66,10 @@ class _HomeState extends State<Home> {
             color: Color(0xffFFF7EB),
           ),
           Icon(
+            Icons.phone_outlined,
+            color: Color(0xffFFF7EB),
+          ),
+          Icon(
             Icons.verified_user_outlined,
             color: Color(0xffFFF7EB),
           )
@@ -73,7 +79,9 @@ class _HomeState extends State<Home> {
           ? IPs()
           : _page == 1
               ? HomeMain()
-              : Hunters(),
+              : _page == 2
+                  ? Phones()
+                  : Hunters(),
     );
   }
 }
@@ -83,7 +91,7 @@ class HomeMain extends StatefulWidget {
   _HomeMainState createState() => _HomeMainState();
 }
 
-class _HomeMainState extends State<HomeMain> {
+class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
   // AnimationController controller1;
   // AnimationController controller2;
   // Animation animation1;
@@ -175,12 +183,11 @@ class _HomeMainState extends State<HomeMain> {
           padding: const EdgeInsets.symmetric(
             horizontal: 16.0,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
@@ -194,6 +201,7 @@ class _HomeMainState extends State<HomeMain> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          //SizedBox(height: animation1.value),
                           Stack(alignment: Alignment.center, children: [
                             Image(
                                 image: AssetImage("assets/green.png"),
@@ -216,9 +224,7 @@ class _HomeMainState extends State<HomeMain> {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
+                Container(
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
@@ -253,9 +259,7 @@ class _HomeMainState extends State<HomeMain> {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
+                Container(
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: GestureDetector(
@@ -263,7 +267,7 @@ class _HomeMainState extends State<HomeMain> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => IPAddress()));
+                                builder: (context) => PhoneInput()));
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -291,8 +295,8 @@ class _HomeMainState extends State<HomeMain> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
