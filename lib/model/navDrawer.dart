@@ -3,7 +3,7 @@ import 'package:osint/config/palette.dart';
 import 'package:osint/hunter/hunters.dart';
 import 'package:osint/ip-locator/ips.dart';
 import 'package:osint/root.dart';
-import 'package:osint/searchAndHome/home.dart';
+import 'package:osint/home.dart';
 import 'package:osint/services/authService.dart';
 
 class NavDrawer extends StatefulWidget {

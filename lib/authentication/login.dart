@@ -3,7 +3,7 @@ import 'package:osint/config/decoration_function.dart';
 import 'package:osint/config/palette.dart';
 import 'package:osint/config/signup_bar.dart';
 import 'package:osint/config/title.dart';
-import 'package:osint/searchAndHome/home.dart';
+import 'package:osint/home.dart';
 import 'package:osint/services/authService.dart';
 
 class Login extends StatefulWidget {
