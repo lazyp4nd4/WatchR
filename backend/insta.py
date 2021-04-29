@@ -5,6 +5,9 @@ try:
 except ImportError:
     from urlparse import urlparse
 
+
+
+
 def instgrm(usr):
     try:
 
@@ -20,12 +23,23 @@ def instgrm(usr):
         url = f"https://www.instagram.com/{usr}/?__a=1"
         
         response = session.get(url, cookies="", headers={'Host': urlparse(url).hostname}, stream=False, timeout=90)
+        
+        
+       
         if(response.status_code==200):
-            return response.json()
+            res=response.json()
+            res["code"]=response.status_code
+            return res
+            
            
 
     except:
         return None
+
+
+
+
+
 
 
     
