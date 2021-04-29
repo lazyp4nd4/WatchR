@@ -35,9 +35,10 @@ class _InputHunterState extends State<InputHunter> {
 
   @override
   Widget build(BuildContext context) {
+    print("Hello");
     return Scaffold(
       appBar: AppBar(
-          title: Text('IP Locator',
+          title: Text('Profile Generator',
               style: TextStyle(
                   color: Palette.darkOrange, fontWeight: FontWeight.bold)),
           centerTitle: true,
@@ -51,7 +52,6 @@ class _InputHunterState extends State<InputHunter> {
                 Icons.arrow_back_ios,
                 color: Palette.darkOrange,
               ))),
-      drawer: NavDrawer(),
       body: SingleChildScrollView(
           child: Center(
         child: Padding(
@@ -73,7 +73,7 @@ class _InputHunterState extends State<InputHunter> {
                             image: AssetImage("assets/hunter.png"),
                             height: 250,
                           ),
-                          Text("Locate IP",
+                          Text("Generate Profile",
                               style: TextStyle(
                                   color: Palette.darkBlue,
                                   fontWeight: FontWeight.bold)),
@@ -157,7 +157,8 @@ class _InputHunterState extends State<InputHunter> {
                   ? ElevatedButton(
                       onPressed: () async {
                         final res = await http.get(Uri.http(
-                            "192.168.43.201:5000", "/2/$first/$last/$domain"));
+                            "watchrosint.herokuapp.com",
+                            "/2/$first/$last/$domain"));
                         dynamic decoded = convert.jsonDecode(res.body)
                             as Map<String, dynamic>;
 

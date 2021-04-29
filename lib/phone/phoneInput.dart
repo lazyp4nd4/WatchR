@@ -100,15 +100,17 @@ class _PhoneInputState extends State<PhoneInput> {
                         focusColor: Color(0xff1173F1),
                       ),
                       onChanged: (value) {
-                        phone = value;
+                        setState(() {
+                          phone = value;
+                        });
                       },
                     )
                   : Container(),
               received == false
                   ? ElevatedButton(
                       onPressed: () async {
-                        final res = await http
-                            .get(Uri.http("192.168.43.201:5000", "/3/$phone"));
+                        final res = await http.get(
+                            Uri.http("watchrosint.herokuapp.com", "/3/$phone"));
                         dynamic decoded = convert.jsonDecode(res.body)
                             as Map<String, dynamic>;
 

@@ -21,7 +21,6 @@ def instgrm(usr):
         
         response = session.get(url, cookies="", headers={'Host': urlparse(url).hostname}, stream=False, timeout=90)
         if(response.status_code==200):
-
             return response.json()
            
 

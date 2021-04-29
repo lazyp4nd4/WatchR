@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:osint/config/palette.dart';
 import 'package:osint/model/navDrawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -41,13 +42,47 @@ class _InputDetailsState extends State<InputDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Generation'),
-      ),
-      drawer: NavDrawer(),
+          title: Text('Social Media Profile',
+              style: TextStyle(
+                  color: Palette.darkOrange, fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Palette.darkOrange,
+              ))),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(alignment: Alignment.center, children: [
+                  Image(image: AssetImage("assets/orange.png"), height: 220),
+                  Column(
+                    children: [
+                      Image(
+                        image: AssetImage("assets/hunter.png"),
+                        height: 250,
+                      ),
+                      Text("Generate Social Media Profile",
+                          style: TextStyle(
+                              color: Palette.darkBlue,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ])
+              ]),
+          SizedBox(
+            height: 100,
+          ),
           received == false
               ? TextField(
                   keyboardType: TextInputType.text,
@@ -75,50 +110,23 @@ class _InputDetailsState extends State<InputDetails> {
             height: 20,
           ),
           received == false
-              ? TextField(
-                  keyboardType: TextInputType.text,
-                  enabled: true,
-                  decoration: InputDecoration(
-                    fillColor: Color(0xffE0E4F2),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xff1173F1),
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Color(0xff1173F1))),
-                    hintText: 'IP address',
-                    focusColor: Color(0xff1173F1),
-                  ),
-                  onChanged: (value) {
-                    username = value;
-                  },
-                )
-              : Container(),
-          received == false
               ? ElevatedButton(
                   onPressed: () async {
-                    final res = await http
-                        .get(Uri.http("192.168.1.4:5000", "/2/$username"));
+                    final res = await http.get(
+                        Uri.http("watchrosint.herokuapp.com", "/2/$username"));
                     dynamic decoded =
                         convert.jsonDecode(res.body) as Map<String, dynamic>;
-                    final res1 =
-                        await http.get(Uri.http("192.168.1.3:5000", "/1/$ip"));
-                    dynamic decoded1 =
-                        convert.jsonDecode(res1.body) as Map<String, dynamic>;
 
                     if (res == null) {
                       setState(() {
                         error = true;
                         received = true;
+                        result_profile = decoded;
                       });
                     } else {
                       setState(() {
                         received = true;
-                        result_ip = decoded;
-                        result_profile = decoded1;
+                        result_profile = decoded;
                       });
                     }
                   },
@@ -192,22 +200,6 @@ class _InputDetailsState extends State<InputDetails> {
           ),
           received == true
               ? error == false
-                  ? Text('City: ${result_ip["location"]["city"]}')
-                  : Text('Some error')
-              : Container(),
-          SizedBox(
-            height: 5,
-          ),
-          received == true
-              ? error == false
-                  ? Text('Country: ${result_ip["location"]["country"]}')
-                  : Text('Some error')
-              : Container(),
-          SizedBox(
-            height: 5,
-          ),
-          received == true
-              ? error == false
                   ? Container(
                       width: double.infinity,
                       height: 500,
@@ -227,12 +219,6 @@ class _InputDetailsState extends State<InputDetails> {
                       onPressed: () async {
                         //photo_url, full_name, followers, following, bio, username
                         await DatabaseServices(uid).addProfile(
-                          result_ip["location"][0]["city"],
-                          result_ip["location"][0]["country"],
-                          result_ip["autonomous_system"]["name"],
-                          ip,
-                          result_ip["location"][0]["latitude"],
-                          result_ip["location"][0]["longitude"],
                           result_profile["user"]["profile_pic_url_hd"],
                           result_profile["user"]["full_name"],
                           result_profile["user"]["edge_followed_by"]["count"],
@@ -251,7 +237,7 @@ class _InputDetailsState extends State<InputDetails> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Text(
-                          'Generate new Profile',
+                          'Generate New Profile',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,

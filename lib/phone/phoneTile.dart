@@ -22,7 +22,7 @@ class _PhoneTileState extends State<PhoneTile> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  '+${widget.phonest.phone_number} ',
+                  '+${widget.phonest.phone_number}',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -40,7 +40,6 @@ class _PhoneTileState extends State<PhoneTile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        flex: 1,
                         child: Text('Carrier: ${widget.phonest.carrier}',
                             style: TextStyle(
                               fontSize: 10,
@@ -48,8 +47,8 @@ class _PhoneTileState extends State<PhoneTile> {
                             )),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Text('Line Type: ${widget.phonest.line_type}',
+                            textAlign: TextAlign.right,
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.bold,

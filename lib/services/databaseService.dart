@@ -39,18 +39,11 @@ class DatabaseServices {
     });
   }
 
-  addProfile(city, country, serviceProvider, ip, lat, lang, photoUrl, fullName,
-      followers, following, bio, username) {
+  addProfile(photoUrl, fullName, followers, following, bio, username) {
     FirebaseFirestore.instance
         .collection('profileGenerated')
         .doc(username)
         .set({
-      'country': country,
-      'city': city,
-      'service_provider': serviceProvider,
-      'ip': ip,
-      'lat': lat,
-      'lang': lang,
       'photo_url': photoUrl,
       'full_name': fullName,
       'followers': followers,

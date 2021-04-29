@@ -7,6 +7,7 @@ import 'package:osint/ip-locator/ipAddress.dart';
 import 'package:osint/ip-locator/ips.dart';
 import 'package:osint/phone/phoneInput.dart';
 import 'package:osint/phone/phones.dart';
+import 'package:osint/profile-generation/inputDetails.dart';
 import 'package:osint/root.dart';
 import 'package:osint/services/authService.dart';
 
@@ -92,11 +93,6 @@ class HomeMain extends StatefulWidget {
 }
 
 class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
-  // AnimationController controller1;
-  // AnimationController controller2;
-  // Animation animation1;
-  // Animation animation2;
-
   String _name;
   void fun() async {
     String name = await SharedFunctions.getUserName();
@@ -110,47 +106,11 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     fun();
-    // controller1 = AnimationController(
-    //   duration: Duration(seconds: 1),
-    //   vsync: this,
-    // );
-    // controller2 = AnimationController(
-    //   duration: Duration(seconds: 1),
-    //   vsync: this,
-    // );
-    // //animation = CurvedAnimation(parent: controller, curve: Curves.linear);
-    // animation1 = Tween<double>(begin: 10, end: 15).animate(controller1);
-    // controller1.forward();
-    // animation1.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     controller1.reverse(from: 1);
-    //   } else if (status == AnimationStatus.dismissed) {
-    //     controller1.forward();
-    //   }
-    // });
-    // controller1.addListener(() {
-    //   setState(() {});
-    // });
-
-    // animation2 = Tween<double>(begin: 10, end: 15).animate(controller2);
-    // controller2.reverse(from: 1);
-    // animation2.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     controller2.reverse(from: 1);
-    //   } else if (status == AnimationStatus.dismissed) {
-    //     controller2.forward();
-    //   }
-    // });
-    // controller2.addListener(() {
-    //   setState(() {});
-    // });
   }
 
   @override
   void dispose() {
     super.dispose();
-    // controller1.dispose();
-    // controller2.dispose();
   }
 
   @override
@@ -184,118 +144,159 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
             horizontal: 16.0,
           ),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => IPAddress()));
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //SizedBox(height: animation1.value),
-                          Stack(alignment: Alignment.center, children: [
-                            Image(
-                                image: AssetImage("assets/green.png"),
-                                height: 220),
-                            Column(
-                              children: [
-                                Image(
-                                  image: AssetImage("assets/map.png"),
-                                  height: 200,
-                                ),
-                                Text("Locate IP",
-                                    style: TextStyle(
-                                        color: Palette.darkBlue,
-                                        fontWeight: FontWeight.bold)),
-                              ],
-                            )
-                          ]),
-                        ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => IPAddress()));
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stack(alignment: Alignment.center, children: [
+                              Image(
+                                  image: AssetImage("assets/green.png"),
+                                  height: 220),
+                              Column(
+                                children: [
+                                  Image(
+                                    image: AssetImage("assets/map.png"),
+                                    height: 200,
+                                  ),
+                                  Text("Locate IP",
+                                      style: TextStyle(
+                                          color: Palette.darkBlue,
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              )
+                            ]),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InputHunter()));
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(alignment: Alignment.center, children: [
-                            Image(
-                                image: AssetImage("assets/orange.png"),
-                                height: 220),
-                            Column(
-                              children: [
-                                Image(
-                                    image: AssetImage("assets/hunter.png"),
-                                    height: 200),
-                                Text("Generate Profile",
-                                    style: TextStyle(
-                                        color: Palette.darkBlue,
-                                        fontWeight: FontWeight.bold))
-                              ],
-                            )
-                          ]),
-                        ],
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InputHunter()));
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stack(alignment: Alignment.center, children: [
+                              Image(
+                                  image: AssetImage("assets/orange.png"),
+                                  height: 220),
+                              Column(
+                                children: [
+                                  Image(
+                                      image: AssetImage("assets/hunter.png"),
+                                      height: 200),
+                                  Text("Generate Profile",
+                                      style: TextStyle(
+                                          color: Palette.darkBlue,
+                                          fontWeight: FontWeight.bold))
+                                ],
+                              )
+                            ]),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PhoneInput()));
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(alignment: Alignment.center, children: [
-                            Image(
-                                image: AssetImage("assets/blue.png"),
-                                height: 200),
-                            Column(
-                              children: [
-                                Image(
-                                  image: AssetImage("assets/phone.png"),
-                                  height: 180,
-                                ),
-                                Text("Locate Phone Number",
-                                    style: TextStyle(
-                                        color: Palette.darkBlue,
-                                        fontWeight: FontWeight.bold))
-                              ],
-                            )
-                          ]),
-                        ],
+                  Container(
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PhoneInput()));
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stack(alignment: Alignment.center, children: [
+                              Image(
+                                  image: AssetImage("assets/blue.png"),
+                                  height: 200),
+                              Column(
+                                children: [
+                                  Image(
+                                    image: AssetImage("assets/phone.png"),
+                                    height: 180,
+                                  ),
+                                  Text("Locate Phone Number",
+                                      style: TextStyle(
+                                          color: Palette.darkBlue,
+                                          fontWeight: FontWeight.bold))
+                                ],
+                              )
+                            ]),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InputDetails()));
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stack(alignment: Alignment.center, children: [
+                              Image(
+                                  image: AssetImage("assets/orange.png"),
+                                  height: 220),
+                              Column(
+                                children: [
+                                  Image(
+                                    image: AssetImage("assets/instagram.png"),
+                                    height: 100,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text("Generate Social Media Profile",
+                                      style: TextStyle(
+                                          color: Palette.darkBlue,
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ])
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
