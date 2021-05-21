@@ -33,14 +33,10 @@ class _RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
-    if (loading == false) {
-      return Loading();
+    if (signedIn) {
+      return Home();
     } else {
-      if (signedIn) {
-        return Home();
-      } else {
-        return AuthScreen();
-      }
+      return AuthScreen();
     }
   }
 }

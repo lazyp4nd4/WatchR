@@ -73,17 +73,22 @@ class DatabaseServices {
   }
 
   addPhoneNumberLocations(
-      location, carrier, country_name, line_type, phone_number) {
+      // ignore: non_constant_identifier_names
+      location,
+      carrier,
+      countryName,
+      lineType,
+      phoneNumber) {
     DocumentReference docRef =
         FirebaseFirestore.instance.collection("phoneNumbers").doc();
     docRef.set({
-      'id': phone_number,
+      'id': phoneNumber,
       'uid': uid,
       'location': location,
       'carrier': carrier,
-      'country_name': country_name,
-      'line_type': line_type,
-      'phone_number': phone_number
+      'country_name': countryName,
+      'line_type': lineType,
+      'phone_number': phoneNumber
     });
   }
 

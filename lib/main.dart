@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:osint/config/palette.dart';
-import 'package:osint/root.dart';
+import 'package:osint/splashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Color(0xffFFF7EB),
       ),
-      home: Root(),
+      home: SplashScreen(),
     );
   }
 }

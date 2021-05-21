@@ -5,7 +5,10 @@ class PhoneSt {
   PhoneSt(
       {this.location,
       this.carrier,
+      // ignore: non_constant_identifier_names
       this.country_name,
+      // ignore: non_constant_identifier_names
       this.line_type,
+      // ignore: non_constant_identifier_names
       this.phone_number});
 }
