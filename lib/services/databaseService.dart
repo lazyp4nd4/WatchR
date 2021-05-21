@@ -31,6 +31,7 @@ class DatabaseServices {
   addIP(city, country, serviceProvider, ip, lat, lang) {
     FirebaseFirestore.instance.collection('ipaddresses').doc(ip).set({
       'country': country,
+      'uid': uid,
       'city': city,
       'service_provider': serviceProvider,
       'ip': ip,
@@ -45,6 +46,7 @@ class DatabaseServices {
         .doc(username)
         .set({
       'photo_url': photoUrl,
+      'uid': uid,
       'full_name': fullName,
       'followers': followers,
       'following': following,
@@ -59,6 +61,7 @@ class DatabaseServices {
         FirebaseFirestore.instance.collection("hunterProfiles").doc();
     docRef.set({
       'uid': docRef.id,
+      'user_uid': uid,
       'first': first,
       'last': last,
       'domain': domain,
@@ -74,7 +77,8 @@ class DatabaseServices {
     DocumentReference docRef =
         FirebaseFirestore.instance.collection("phoneNumbers").doc();
     docRef.set({
-      'uid': docRef.id,
+      'id': phone_number,
+      'uid': uid,
       'location': location,
       'carrier': carrier,
       'country_name': country_name,
@@ -122,6 +126,7 @@ class DatabaseServices {
   Stream<List<IPAdd>> get ips {
     return FirebaseFirestore.instance
         .collection('ipaddresses')
+        .where('uid', isEqualTo: uid)
         .snapshots()
         .map(_ipListFromSnapshots);
   }
@@ -167,6 +172,7 @@ class DatabaseServices {
   Stream<List<Hunter>> get hunterProfiles {
     return FirebaseFirestore.instance
         .collection('hunterProfiles')
+        .where('user_uid', isEqualTo: uid)
         .snapshots()
         .map(_hunterProfileListFromSnapshots);
   }
@@ -185,6 +191,7 @@ class DatabaseServices {
   Stream<List<PhoneSt>> get phoneNumbers {
     return FirebaseFirestore.instance
         .collection('phoneNumbers')
+        .where('uid', isEqualTo: uid)
         .snapshots()
         .map(_phoneNumberListFromSnapshots);
   }

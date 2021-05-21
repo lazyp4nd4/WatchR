@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:osint/config/palette.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -16,6 +17,7 @@ class _IPAddressState extends State<IPAddress> {
   String username;
   bool received = false;
   bool error = false;
+  bool loading = false;
   // ignore: non_constant_identifier_names
   Map<String, dynamic> result_ip;
   // ignore: non_constant_identifier_names
@@ -85,140 +87,143 @@ class _IPAddressState extends State<IPAddress> {
               SizedBox(
                 height: 100,
               ),
-              received == false
-                  ? TextField(
-                      keyboardType: TextInputType.text,
-                      enabled: true,
-                      decoration: InputDecoration(
-                        fillColor: Color(0xffE0E4F2),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff1173F1),
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Color(0xff1173F1))),
-                        hintText: 'IP Address',
-                        focusColor: Color(0xff1173F1),
-                      ),
-                      onChanged: (value) {
-                        ip = value;
-                      },
-                    )
-                  : Container(),
-              received == false
-                  ? ElevatedButton(
-                      onPressed: () async {
-                        final res = await http.get(
-                            Uri.http("watchrosint.herokuapp.com", "/1/$ip"));
-                        dynamic decoded = convert.jsonDecode(res.body)
-                            as Map<String, dynamic>;
-
-                        if (res == null) {
-                          setState(() {
-                            error = true;
-                            received = true;
-                          });
-                        } else {
-                          setState(() {
-                            received = true;
-                            result_ip = decoded;
-                          });
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
-                        width: double.infinity,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Text(
-                          'Locate!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                  : Container(),
-              received == true
-                  ? error == false
-                      ? Text('City: ${result_ip["location"][0]["city"]}')
-                      : Text('Some error')
-                  : Container(),
-              SizedBox(
-                height: 30,
-              ),
-              received == true
-                  ? error == false
-                      ? Text('Country: ${result_ip["location"][0]["country"]}')
-                      : Text('Some error')
-                  : Container(),
-              SizedBox(
-                height: 30,
-              ),
-              received == true
-                  ? error == false
-                      ? Text(
-                          'Service Provider: ${result_ip["autonomous_system"]["name"]}')
-                      : Text('Some error')
-                  : Container(),
-              SizedBox(
-                height: 30,
-              ),
-              received == true
-                  ? error == false
-                      ? Container(
-                          width: double.infinity,
-                          height: 500,
-                          padding: EdgeInsets.all(20),
-                          child: GoogleMap(
-                            initialCameraPosition: CameraPosition(
-                                zoom: 8,
-                                target: LatLng(
-                                    result_ip["location"][0]["latitude"],
-                                    result_ip["location"][0]["longitude"])),
-                          ),
-                        )
-                      : Text("Some error")
-                  : Container(),
-              received == true
-                  ? error == false
-                      ? ElevatedButton(
-                          onPressed: () async {
-                            await DatabaseServices(uid).addIP(
-                                result_ip["location"][0]["city"],
-                                result_ip["location"][0]["country"],
-                                result_ip["autonomous_system"]["name"],
-                                ip,
-                                result_ip["location"][0]["latitude"],
-                                result_ip["location"][0]["longitude"]);
-                            setState(() {
-                              received = false;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10)),
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: Text(
-                              'Locate Another IP!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+              loading == false
+                  ? received == false
+                      ? Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.text,
+                              enabled: true,
+                              decoration: InputDecoration(
+                                fillColor: Color(0xffE0E4F2),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff1173F1),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide:
+                                        BorderSide(color: Color(0xff1173F1))),
+                                hintText: 'IP Address',
+                                focusColor: Color(0xff1173F1),
                               ),
-                              textAlign: TextAlign.center,
+                              onChanged: (value) {
+                                ip = value;
+                              },
                             ),
-                          ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                setState(() {
+                                  loading = true;
+                                });
+                                final res = await http.get(Uri.http(
+                                    "watchrosint.herokuapp.com", "/1/$ip"));
+                                dynamic decoded = convert.jsonDecode(res.body)
+                                    as Map<String, dynamic>;
+                                setState(() {
+                                  loading = false;
+                                });
+                                if (res == null) {
+                                  setState(() {
+                                    error = true;
+                                    received = true;
+                                  });
+                                } else {
+                                  setState(() {
+                                    received = true;
+                                    result_ip = decoded;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                width: double.infinity,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text(
+                                  'Locate!',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         )
-                      : Text('Some error')
-                  : Container(),
+                      : error == true
+                          ? Center(child: Text("Some error occured!"))
+                          : Column(
+                              children: [
+                                Text(
+                                    'City: ${result_ip["location"][0]["city"]}'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Text(
+                                    'Country: ${result_ip["location"][0]["country"]}'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Text(
+                                    'Service Provider: ${result_ip["autonomous_system"]["name"]}'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 500,
+                                  padding: EdgeInsets.all(20),
+                                  child: GoogleMap(
+                                    initialCameraPosition: CameraPosition(
+                                        zoom: 8,
+                                        target: LatLng(
+                                            result_ip["location"][0]
+                                                ["latitude"],
+                                            result_ip["location"][0]
+                                                ["longitude"])),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await DatabaseServices(uid).addIP(
+                                        result_ip["location"][0]["city"],
+                                        result_ip["location"][0]["country"],
+                                        result_ip["autonomous_system"]["name"],
+                                        ip,
+                                        result_ip["location"][0]["latitude"],
+                                        result_ip["location"][0]["longitude"]);
+                                    setState(() {
+                                      received = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    width: double.infinity,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text(
+                                      'Locate Another IP!',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                  : SpinKitCircle(
+                      color: Colors.blue,
+                      size: 100,
+                    ),
             ],
           ),
         ),

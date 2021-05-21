@@ -256,45 +256,45 @@ class _HomeMainState extends State<HomeMain> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InputDetails()));
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Stack(alignment: Alignment.center, children: [
-                              Image(
-                                  image: AssetImage("assets/orange.png"),
-                                  height: 220),
-                              Column(
-                                children: [
-                                  Image(
-                                    image: AssetImage("assets/instagram.png"),
-                                    height: 100,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text("Generate Social Media Profile",
-                                      style: TextStyle(
-                                          color: Palette.darkBlue,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                            ])
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   child: Align(
+                  //     alignment: Alignment.centerRight,
+                  //     child: GestureDetector(
+                  //       onTap: () {
+                  //         Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => InputDetails()));
+                  //       },
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Stack(alignment: Alignment.center, children: [
+                  //             Image(
+                  //                 image: AssetImage("assets/orange.png"),
+                  //                 height: 220),
+                  //             Column(
+                  //               children: [
+                  //                 Image(
+                  //                   image: AssetImage("assets/instagram.png"),
+                  //                   height: 100,
+                  //                 ),
+                  //                 SizedBox(
+                  //                   height: 20,
+                  //                 ),
+                  //                 Text("Generate Social Media Profile",
+                  //                     style: TextStyle(
+                  //                         color: Palette.darkBlue,
+                  //                         fontWeight: FontWeight.bold)),
+                  //               ],
+                  //             ),
+                  //           ])
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

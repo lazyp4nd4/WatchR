@@ -56,14 +56,13 @@ class _LoginState extends State<Login> {
                     autocorrect: false,
                     onChanged: (value) {
                       setState(() {
-                        email = value;
+                        password = value;
                       });
                     },
                   ),
                   SignInBar(
                       label: 'Sign In',
                       onPressed: () async {
-                        print("hello -1 ");
                         setState(() {
                           processing = true;
                         });
@@ -76,7 +75,7 @@ class _LoginState extends State<Login> {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Home()));
                         } else {
-                          print("hello");
+                          print("Result value false at login.dart");
                         }
                       },
                       isLoading: processing),

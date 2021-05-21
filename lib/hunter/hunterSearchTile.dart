@@ -21,12 +21,22 @@ class _HunterTileState extends State<HunterTile> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  '${widget.hunterProfiled.first} ${widget.hunterProfiled.last}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      '${widget.hunterProfiled.first} ${widget.hunterProfiled.last}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Spacer(),
+                    if (widget.hunterProfiled.confidence > 95)
+                      Icon(
+                        Icons.verified,
+                        color: Colors.blue,
+                      )
+                  ],
                 ),
                 SizedBox(
                   height: 5,
@@ -37,29 +47,32 @@ class _HunterTileState extends State<HunterTile> {
                 ),
                 SizedBox(height: 20),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text('Email: ${widget.hunterProfiled.email}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text('Domain: ${widget.hunterProfiled.domain}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    ]),
-                SizedBox(height: 5),
-                Text(
-                  'Confidence: ${widget.hunterProfiled.confidence}',
-                  style: TextStyle(fontSize: 15, color: Colors.blueGrey[400]),
+                  children: [
+                    Text('Email:',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    Spacer(),
+                    Text('${widget.hunterProfiled.email}',
+                        style: TextStyle(
+                          fontSize: 15,
+                        )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Domain:',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    Spacer(),
+                    Text('${widget.hunterProfiled.domain}',
+                        style: TextStyle(
+                          fontSize: 15,
+                        )),
+                  ],
                 ),
               ],
             )));
