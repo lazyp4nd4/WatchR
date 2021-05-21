@@ -117,7 +117,8 @@ class _PhoneInputState extends State<PhoneInput> {
                                   loading = true;
                                 });
                                 final res = await http.get(Uri.http(
-                                    "watchrosint.herokuapp.com", "/3/$phone"));
+                                    "watchrosint51.herokuapp.com",
+                                    "/3/$phone"));
                                 dynamic decoded = convert.jsonDecode(res.body)
                                     as Map<String, dynamic>;
                                 setState(() {
@@ -156,23 +157,20 @@ class _PhoneInputState extends State<PhoneInput> {
                       : error == false
                           ? Column(
                               children: [
-                                Text(
-                                    'Location: ${result_phone["result"]["location"]}'),
+                                Text('Location: ${result_phone["location"]}'),
                                 SizedBox(
                                   height: 30,
                                 ),
                                 Text(
-                                    'Country: ${result_phone["result"]["country_name"]}'),
+                                    'Country: ${result_phone["country_name"]}'),
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Text(
-                                    'Carrier: ${result_phone["result"]["carrier"]}'),
+                                Text('Carrier: ${result_phone["carrier"]}'),
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Text(
-                                    'Line Type: ${result_phone["result"]["line_type"]}'),
+                                Text('Line Type: ${result_phone["line_type"]}'),
                                 SizedBox(
                                   height: 30,
                                 ),
@@ -180,12 +178,12 @@ class _PhoneInputState extends State<PhoneInput> {
                                   onPressed: () async {
                                     await DatabaseServices(uid)
                                         .addPhoneNumberLocations(
-                                            result_phone["result"]["location"],
-                                            result_phone["result"]["carrier"],
-                                            result_phone["result"]
-                                                ["country_name"],
-                                            result_phone["result"]["line_type"],
-                                            result_phone["result"]["number"]);
+                                            result_phone["location"],
+                                            result_phone["carrier"],
+                                            result_phone["country_name"],
+                                            result_phone["line_type"],
+                                            result_phone[
+                                                "international_format"]);
                                     setState(() {
                                       received = false;
                                     });

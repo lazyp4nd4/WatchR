@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:osint/config/palette.dart';
-import 'package:osint/model/navDrawer.dart';
 import 'package:osint/services/databaseService.dart';
 import 'package:osint/services/sharedPreferences.dart';
 import 'package:http/http.dart' as http;
@@ -162,7 +161,7 @@ class _InputHunterState extends State<InputHunter> {
                                   loading = true;
                                 });
                                 final res = await http.get(Uri.http(
-                                    "watchrosint.herokuapp.com",
+                                    "watchrosint51.herokuapp.com",
                                     "/2/$first/$last/$domain"));
                                 dynamic decoded = convert.jsonDecode(res.body)
                                     as Map<String, dynamic>;

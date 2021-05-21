@@ -7,7 +7,6 @@ import 'package:osint/ip-locator/ipAddress.dart';
 import 'package:osint/ip-locator/ips.dart';
 import 'package:osint/phone/phoneInput.dart';
 import 'package:osint/phone/phones.dart';
-import 'package:osint/profile-generation/inputDetails.dart';
 import 'package:osint/root.dart';
 import 'package:osint/services/authService.dart';
 

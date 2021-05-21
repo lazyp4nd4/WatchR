@@ -29,7 +29,7 @@ def fun_ins(first, last, domain):
 @app.route("/3/<string:phone_input>")
 def fun_phone(phone_input):
     if phoneinfo(phone_input) != None :
-        return jsonify(phoneinfo(phone_input))
+        return phoneinfo(phone_input)
     else :
         return None
 
@@ -42,4 +42,4 @@ def fun_insta(insta_usrnm):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="watchrosint.herokuapp.com")
+    app.run(debug=True, host="watchrosint51.herokuapp.com")

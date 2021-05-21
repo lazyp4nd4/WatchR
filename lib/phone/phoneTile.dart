@@ -22,7 +22,7 @@ class _PhoneTileState extends State<PhoneTile> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  '+${widget.phonest.phone_number}',
+                  '${widget.phonest.phone_number}',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,

@@ -119,7 +119,7 @@ class _IPAddressState extends State<IPAddress> {
                                   loading = true;
                                 });
                                 final res = await http.get(Uri.http(
-                                    "watchrosint.herokuapp.com", "/1/$ip"));
+                                    "watchrosint51.herokuapp.com", "/1/$ip"));
                                 dynamic decoded = convert.jsonDecode(res.body)
                                     as Map<String, dynamic>;
                                 setState(() {
