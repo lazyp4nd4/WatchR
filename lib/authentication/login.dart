@@ -54,6 +54,7 @@ class _LoginState extends State<Login> {
                     decoration: signInInputDecoration(hintText: 'Password'),
                     keyboardType: TextInputType.visiblePassword,
                     autocorrect: false,
+                    obscureText: true,
                     onChanged: (value) {
                       setState(() {
                         password = value;
@@ -66,7 +67,7 @@ class _LoginState extends State<Login> {
                         setState(() {
                           processing = true;
                         });
-                        bool result =
+                        var result =
                             await _auth.signInWithEmail(email, password);
                         setState(() {
                           processing = false;
@@ -74,8 +75,24 @@ class _LoginState extends State<Login> {
                         if (result == true) {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Home()));
+                        } else if (result == false) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              "Could not Create User",
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         } else {
-                          print("Result value false at login.dart");
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              result.toString(),
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         }
                       },
                       isLoading: processing),
@@ -107,15 +124,31 @@ class _LoginState extends State<Login> {
                         setState(() {
                           processing = true;
                         });
-                        bool result = await _auth.signInWithGoogle();
+                        var result = await _auth.signInWithGoogle();
                         setState(() {
                           processing = false;
                         });
                         if (result == true) {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Home()));
+                        } else if (result == false) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              "Could not Create User",
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         } else {
-                          print("Hello ");
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              result.toString(),
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         }
                       },
                       shape: RoundedRectangleBorder(

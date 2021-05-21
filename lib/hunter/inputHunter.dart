@@ -82,117 +82,128 @@ class _InputHunterState extends State<InputHunter> {
                     ])
                   ]),
               SizedBox(
-                height: 100,
+                height: 30,
               ),
               // to enter data
               loading == false
                   ? received == false
                       ? Column(
                           children: [
-                            TextField(
-                              keyboardType: TextInputType.text,
-                              enabled: true,
-                              decoration: InputDecoration(
-                                fillColor: Color(0xffE0E4F2),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xff1173F1),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                enabled: true,
+                                decoration: InputDecoration(
+                                  fillColor: Palette.lightBlue,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Palette.darkBlue, width: 2.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Palette.lightBlue)),
+                                  hintText: 'First Name',
+                                  focusColor: Palette.darkBlue,
                                 ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(color: Color(0xff1173F1))),
-                                hintText: 'First Name',
-                                focusColor: Color(0xff1173F1),
+                                onChanged: (value) {
+                                  first = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                first = value;
-                              },
                             ),
-                            TextField(
-                              keyboardType: TextInputType.text,
-                              enabled: true,
-                              decoration: InputDecoration(
-                                fillColor: Color(0xffE0E4F2),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xff1173F1),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                enabled: true,
+                                decoration: InputDecoration(
+                                  fillColor: Palette.lightBlue,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Palette.darkBlue, width: 2.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Palette.lightBlue)),
+                                  hintText: 'Last Name',
+                                  focusColor: Palette.darkBlue,
                                 ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(color: Color(0xff1173F1))),
-                                hintText: 'Last Name',
-                                focusColor: Color(0xff1173F1),
+                                onChanged: (value) {
+                                  last = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                last = value;
-                              },
                             ),
-                            TextField(
-                              keyboardType: TextInputType.text,
-                              enabled: true,
-                              decoration: InputDecoration(
-                                fillColor: Color(0xffE0E4F2),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xff1173F1),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                enabled: true,
+                                decoration: InputDecoration(
+                                  fillColor: Palette.lightBlue,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Palette.darkBlue, width: 2.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Palette.lightBlue)),
+                                  hintText: 'Domain',
+                                  focusColor: Palette.darkBlue,
                                 ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(color: Color(0xff1173F1))),
-                                hintText: 'Domain',
-                                focusColor: Color(0xff1173F1),
+                                onChanged: (value) {
+                                  domain = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                domain = value;
-                              },
                             ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                final res = await http.get(Uri.http(
-                                    "watchrosint51.herokuapp.com",
-                                    "/2/$first/$last/$domain"));
-                                dynamic decoded = convert.jsonDecode(res.body)
-                                    as Map<String, dynamic>;
-                                setState(() {
-                                  loading = false;
-                                });
-                                if (res == null) {
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              // ignore: deprecated_member_use
+                              child: FlatButton(
+                                onPressed: () async {
                                   setState(() {
-                                    error = true;
-                                    received = true;
+                                    loading = true;
                                   });
-                                } else {
+                                  final res = await http.get(Uri.http(
+                                      "watchrosint51.herokuapp.com",
+                                      "/2/$first/$last/$domain"));
+                                  dynamic decoded = convert.jsonDecode(res.body)
+                                      as Map<String, dynamic>;
                                   setState(() {
-                                    result = decoded;
-                                    received = true;
+                                    loading = false;
                                   });
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Text(
-                                  'Generate Profile!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
+                                  if (res == null) {
+                                    setState(() {
+                                      error = true;
+                                      received = true;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      result = decoded;
+                                      received = true;
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Palette.lightBlue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Text(
+                                    'Generate Profile!',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),
@@ -246,16 +257,21 @@ class _InputHunterState extends State<InputHunter> {
                                       ),
                                     ]),
                                 SizedBox(height: 5),
-                                Text(
-                                  'Confidence: ${result["data"]["score"]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.blueGrey[400]),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Confidence: ${result["data"]["score"]}',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.blueGrey[400]),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                ElevatedButton(
+                                // ignore: deprecated_member_use
+                                FlatButton(
                                   onPressed: () async {
                                     await DatabaseServices(uid)
                                         .addHunterProfile(
@@ -272,6 +288,7 @@ class _InputHunterState extends State<InputHunter> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
+                                        color: Palette.lightBlue,
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     width: double.infinity,
@@ -294,7 +311,7 @@ class _InputHunterState extends State<InputHunter> {
                                   "Some error occured!\nPlease try again later."),
                             )
                   : SpinKitCircle(
-                      color: Colors.blue,
+                      color: Palette.lightBlue,
                       size: 100,
                     ),
             ],

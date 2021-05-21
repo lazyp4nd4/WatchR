@@ -84,7 +84,7 @@ class _RegisterState extends State<Register> {
                 TextFormField(
                   decoration: registerInputDecoration(hintText: 'Password'),
                   style: TextStyle(color: Colors.white),
-                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                   autocorrect: false,
                   onChanged: (value) {
                     setState(() {
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                         setState(() {
                           processing = true;
                         });
-                        bool ans = await _auth.registerWithEmail(
+                        var ans = await _auth.registerWithEmail(
                             email, password, name, phoneNumber);
                         setState(() {
                           processing = true;
@@ -108,8 +108,27 @@ class _RegisterState extends State<Register> {
                         if (ans == true) {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Home()));
+                        } else if (ans == false) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              "Could not Create User",
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         } else {
-                          print("Not able to register");
+                          setState(() {
+                            processing = false;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.black,
+                            content: Text(
+                              ans.toString(),
+                              style: TextStyle(
+                                  color: Colors.redAccent, letterSpacing: 0.5),
+                            ),
+                          ));
                         }
                       },
                       isLoading: processing),

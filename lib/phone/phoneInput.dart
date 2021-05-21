@@ -16,6 +16,8 @@ class _PhoneInputState extends State<PhoneInput> {
   bool received = false;
   bool error = false;
   bool loading = false;
+  String carrier = "";
+  String country = "";
   // ignore: non_constant_identifier_names
   Map<String, dynamic> result_phone;
   String uid;
@@ -88,67 +90,80 @@ class _PhoneInputState extends State<PhoneInput> {
                       ? Column(
                           children: [
                             TextField(
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               enabled: true,
                               decoration: InputDecoration(
-                                fillColor: Color(0xffE0E4F2),
-                                enabledBorder: OutlineInputBorder(
+                                fillColor: Palette.lightBlue,
+                                focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xff1173F1),
-                                  ),
+                                      color: Palette.darkBlue, width: 2.0),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide:
-                                        BorderSide(color: Color(0xff1173F1))),
-                                hintText: 'Phone Number with Country Code',
-                                focusColor: Color(0xff1173F1),
+                                        BorderSide(color: Palette.lightBlue)),
+                                hintText: 'Phone Number with Country Codes',
+                                focusColor: Palette.darkBlue,
                               ),
                               onChanged: (value) {
-                                setState(() {
-                                  phone = value;
-                                });
+                                phone = value;
                               },
                             ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                final res = await http.get(Uri.http(
-                                    "watchrosint51.herokuapp.com",
-                                    "/3/$phone"));
-                                dynamic decoded = convert.jsonDecode(res.body)
-                                    as Map<String, dynamic>;
-                                setState(() {
-                                  loading = false;
-                                });
-                                if (res == null) {
+                            // ignore: deprecated_member_use
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FlatButton(
+                                onPressed: () async {
                                   setState(() {
-                                    error = true;
-                                    received = true;
+                                    loading = true;
                                   });
-                                } else {
+                                  final res = await http.get(Uri.https(
+                                      "watchrosint51.herokuapp.com",
+                                      "/3/$phone"));
+                                  dynamic decoded = convert.jsonDecode(res.body)
+                                      as Map<String, dynamic>;
                                   setState(() {
-                                    received = true;
-                                    result_phone = decoded;
+                                    loading = false;
                                   });
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Text(
-                                  'Locate!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
+                                  if (res == null) {
+                                    setState(() {
+                                      error = true;
+                                      received = true;
+                                    });
+                                  } else {
+                                    List<String> tempCOuntry =
+                                        decoded["country_name"].split(" ");
+
+                                    List<String> tempCarrier =
+                                        decoded["carrier"].split(" ");
+
+                                    setState(() {
+                                      received = true;
+                                      result_phone = decoded;
+                                      country = tempCOuntry.first;
+                                      print(country);
+                                      carrier = tempCarrier.first +
+                                          " " +
+                                          tempCarrier[1];
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Palette.lightBlue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Text(
+                                    'Locate!',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             )
@@ -157,51 +172,104 @@ class _PhoneInputState extends State<PhoneInput> {
                       : error == false
                           ? Column(
                               children: [
-                                Text('Location: ${result_phone["location"]}'),
-                                SizedBox(
-                                  height: 30,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Location:'),
+                                      Text(
+                                        ' ${result_phone["location"]}',
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                    'Country: ${result_phone["country_name"]}'),
-                                SizedBox(
-                                  height: 30,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Country:'),
+                                      Text(
+                                        '$country',
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Text('Carrier: ${result_phone["carrier"]}'),
-                                SizedBox(
-                                  height: 30,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Carrier:'),
+                                      Text(
+                                        '$carrier',
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Text('Line Type: ${result_phone["line_type"]}'),
-                                SizedBox(
-                                  height: 30,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Line Type:'),
+                                      Text(
+                                        ' ${result_phone["line_type"]}',
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    await DatabaseServices(uid)
-                                        .addPhoneNumberLocations(
-                                            result_phone["location"],
-                                            result_phone["carrier"],
-                                            result_phone["country_name"],
-                                            result_phone["line_type"],
-                                            result_phone[
-                                                "international_format"]);
-                                    setState(() {
-                                      received = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    width: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    child: Text(
-                                      'Locate Another Phone!',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
+                                // ignore: deprecated_member_use
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  // ignore: deprecated_member_use
+                                  child: FlatButton(
+                                    onPressed: () async {
+                                      await DatabaseServices(uid)
+                                          .addPhoneNumberLocations(
+                                              result_phone["location"],
+                                              result_phone["carrier"],
+                                              result_phone["country_name"],
+                                              result_phone["line_type"],
+                                              result_phone[
+                                                  "international_format"]);
+                                      setState(() {
+                                        received = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Palette.lightBlue,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      width: double.infinity,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      child: Text(
+                                        'Locate Another Phone!',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
@@ -211,7 +279,7 @@ class _PhoneInputState extends State<PhoneInput> {
                               child: Text("Some error occured!"),
                             )
                   : SpinKitCircle(
-                      color: Colors.blue,
+                      color: Palette.lightBlue,
                       size: 100,
                     ),
             ],

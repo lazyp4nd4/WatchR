@@ -9,23 +9,24 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   UserCredential result;
 
-  Future<bool> signInWithGoogle() async {
-    try {
-      GoogleSignIn googleSignIn = GoogleSignIn();
-      GoogleSignInAccount account = await googleSignIn.signIn();
-      if (account == null) {
-        print("Error - 1");
-        return false;
-      } else {
-        result = await _auth.signInWithCredential(GoogleAuthProvider.credential(
-            idToken: (await account.authentication).idToken,
-            accessToken: (await account.authentication).accessToken));
-      }
-      if (result.user == null) {
-        print("Error - 2");
-        return false;
-      } else {
-        User user = result.user;
+  Future<dynamic> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
+        User user = userCredential.user;
         bool ans = false;
         if (user.phoneNumber == null) {
           ans = await DatabaseServices(user.uid)
@@ -36,14 +37,24 @@ class AuthService {
         }
         if (ans == true) return true;
         return false;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+          return e;
+        } else if (e.code == 'invalid-credential') {
+          // handle the error here
+          return e;
+        }
+      } catch (e) {
+        // handle the error here
+        return e;
       }
-    } catch (error) {
-      print("Error - 3");
-      return false;
     }
+
+    return true;
   }
 
-  Future<bool> registerWithEmail(email, password, name, phoneNumber) async {
+  Future<dynamic> registerWithEmail(email, password, name, phoneNumber) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -56,18 +67,18 @@ class AuthService {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        String res = 'The password provided is too weak.';
+        return res;
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        String res = 'The account already exists for that email.';
+        return res;
       }
-      return false;
     } catch (e) {
-      print(e);
       return false;
     }
   }
 
-  Future<bool> signInWithEmail(email, password) async {
+  Future<dynamic> signInWithEmail(email, password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -94,11 +105,16 @@ class AuthService {
 
       return (ans1 && ans2 && ans3);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
-      return false;
+      if (e.code == 'wrong-password') {
+        String res = 'The password provided is incorrect. Please try again!';
+        return res;
+      } else if (e.code == 'user-not-found') {
+        String res = 'No account exists for this email.';
+        return res;
+      }
     } catch (e) {
       print(e);
-      return e;
+      return false;
     }
   }
 
