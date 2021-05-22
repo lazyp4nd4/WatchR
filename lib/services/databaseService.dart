@@ -57,10 +57,7 @@ class DatabaseServices {
   }
 
   addHunterProfile(first, last, domain, email, company, position, confidence) {
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection("hunterProfiles").doc();
-    docRef.set({
-      'uid': docRef.id,
+    FirebaseFirestore.instance.collection("hunterProfiles").doc(email).set({
       'user_uid': uid,
       'first': first,
       'last': last,
@@ -79,9 +76,7 @@ class DatabaseServices {
       countryName,
       lineType,
       phoneNumber) {
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection("phoneNumbers").doc();
-    docRef.set({
+    FirebaseFirestore.instance.collection("phoneNumbers").doc(phoneNumber).set({
       'id': phoneNumber,
       'uid': uid,
       'location': location,
@@ -163,7 +158,6 @@ class DatabaseServices {
   List<Hunter> _hunterProfileListFromSnapshots(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Hunter(
-          uid: doc['uid'],
           first: doc['first'],
           last: doc['last'],
           domain: doc['domain'],
