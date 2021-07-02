@@ -1,9 +1,8 @@
 class Hunter {
-  String first, last, email, company, position, domain, uid;
+  String first, last, email, company, position, domain;
   int confidence;
   Hunter(
-      {this.uid,
-      this.company,
+      {this.company,
       this.confidence,
       this.domain,
       this.email,
