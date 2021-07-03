@@ -165,16 +165,13 @@ Project Link: [https://github.com/lazyp4nd4/WatchR](https://github.com/lazyp4nd4
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[contributors-shield]: https://img.shields.io/github/contributors/lazyp4nd4/WatchR.svg?style=for-the-badge
+[contributors-url]: https://github.com/lazyp4nd4/WatchR/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/lazyp4nd4/WatchR.svg?style=for-the-badge
+[forks-url]: https://github.com/lazyp4nd4/WatchR/network/members
+[stars-shield]: https://img.shields.io/github/stars/lazyp4nd4/WatchR.svg?style=for-the-badge
+[stars-url]: https://github.com/lazyp4nd4/WatchR/stargazers
+[issues-shield]: https://img.shields.io/github/issues/lazyp4nd4/WatchR.svg?style=for-the-badge
+[issues-url]:https://github.com/lazyp4nd4/WatchR/issues
+[license-shield]: https://img.shields.io/github/license/lazyp4nd4/WatchR.svg?style=for-the-badge
+[license-url]: https://github.com/lazyp4nd4/WatchR/blob/master/LICENSE.txt
